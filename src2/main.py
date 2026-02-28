@@ -4,5 +4,6 @@ import punish
 if __name__ == "__main__":
     # post.tweetBot(1)
     # punish.dumpSSH()
-    currOS = post.detectOS()
-    print(post.chromeProfile(currOS))
+    post.cookieTest()
+    # currOS = post.detectOS()
+    # print(post.chromeProfile(currOS))

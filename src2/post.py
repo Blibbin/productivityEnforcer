@@ -26,7 +26,7 @@ def detectOS():
 def chromeProfile(os):
     match os:
         case 'Windows':
-            return homepath + "AppData/Local/Google/Chrome/User Data"
+            return homepath + "\selenium-profile"
         case 'Darwin':
             return homepath + "Library/Application Support/Google/Chrome"
 
@@ -35,11 +35,16 @@ password = os.getenv("xPASS")
 currOS = detectOS()
 
 op = Options()
-op.add_argument("--headless=new")
-op.add_argument("--disable-gpu")
-op.add_argument("--user-data-dir=~/Library/Application Support/Google/Chrome/selenium-profile")
+# op.add_argument("--headless=new")
+# op.add_argument("--disable-gpu")
+# op.add_argument("--disable-blink-features=AutomationControlled")
+op.add_argument("--user-data-dir=/selenium-profile")
 
-driver = uc.Chrome(options=op, version_main=145)
+print("Test")
+
+driver = uc.Chrome(options=op)
+# driver = webdriver.Chrome(options=op)
+# driver.execute_script("""Object.defineProperty(navigator, 'webdriver', {get: () => undefined}))""")
 
 def human_type(element, text):
     for char in text:
@@ -47,7 +52,7 @@ def human_type(element, text):
         time.sleep(random.uniform(0.1, 0.3))
 
 def cookieTest():
-    # driver = uc.Chrome(version_main=145)
+    driver = uc.Chrome()
     driver.get('https://x.com/')
     input("Pause")
 
@@ -55,14 +60,16 @@ def cookieTest():
 
 def tweetBot(number):
     driver.get('https://x.com/home')
-    time.sleep(3)
+    time.sleep(5)
 
     if "login" in driver.current_url.lower():
 
         driver.get('https://x.com/login')
         driver.implicitly_wait(15)
 
-        preUser = driver.find_element(By.XPATH, "//input[@name='text']")
+        input("Pause")
+
+        preUser = driver.find_element(By.XPATH, "//input[@type='text']")
         human_type(preUser, username)
 
         next = driver.find_element(By.CSS_SELECTOR, ".css-175oi2r.r-sdzlij.r-1phboty.r-rs99b7.r-lrvibr.r-ywje51.r-184id4b.r-13qz1uu.r-2yi16.r-1qi8awa.r-3pj75a.r-1loqt21.r-o7ynqc.r-6416eg.r-1ny4l3l")
